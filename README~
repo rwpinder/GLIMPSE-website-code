@@ -1,0 +1,7 @@
+Contains GLIMPSE website code including
+
+test.html: main landing page
+main.py: web handler for google app engine
+app.yaml: descriptor for google app engine
+
+lots of other html files

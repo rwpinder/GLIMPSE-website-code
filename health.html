@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>GLIMPSE Project</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+	<link href='http://fonts.googleapis.com/css?family=Fugaz+One' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+	<style type='text/css'>
+	  header nav {font-size:1.25em}
+	  header nav ul{margin:25px 0 0 0;float:right; margin-bottom:1.2em; margin-top:2em}
+	  header nav ul li{display:inline;color:#0079aa;margin-right:20px}
+	  header nav ul li a,header nav ul li a:visited,header nav ul li a:active{color:#0079aa;text-decoration:none}
+	  header nav ul li a.hover{text-decoration:underline}
+	  h3.strapline{color:#555;margin-bottom:1em;text-align:center}
+	  p.contact{color:#555;text-align:center}
+	</style>
+
+	<style type='text/css'>
+	  p { line-height: 1.5 }
+
+	  .charge {
+	  position: relative;
+	  bottom: 0.5em;
+	  color: black;
+	  font-size: 0.8em;
+	  }
+
+	  .sub {
+	  position: relative;
+	  top: 0.3em;
+	  color: black;
+	  font-size: 0.8em;
+	  }
+	</style>
+
+  </head>
+  <body>
+
+
+
+<div class="container">
+  <div class='four columns'>
+    <header>
+      <nav><ul><li>
+	    <a href="/"><span style="color: #FF6666;font-family: Fugaz One;font-size:3.2em">GLIMPSE</span></a></li>
+	</ul>
+      </nav>
+  </div>
+  <header>
+    <nav class='twelve columns'>
+      <ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/rf">Radiative Forcing</a></li>
+	<li><a href="/health">Human Health</a></li>
+	<li><a href="/ecosystems">Ecosystems</a></li>
+	<li><a href="/scenarios">Scenarios</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<div class="row">
+<br>
+</div>
+
+
+
+
+<div class="row">
+<div class="sixteen columns">
+<h3>Air Quality and Human Health</h3>
+<p>The same pollutants that exacerbate climate change are also dangerous to human health.</p>
+<!-- Standard <ul> with class of "tabs" -->
+<ul class="tabs">
+  <!-- Give href an ID value of corresponding "tabs-content" <li>'s -->
+  <li><a class="active" href="#calc">Calculation</a></li>
+  <li><a href="#next">Next Steps</a></li>
+</ul>
+
+<!-- <\!-- Standard <ul> with class of "tabs-content" -\-> -->
+<ul class="tabs-content">
+  <!-- Give ID that matches HREF of above anchors -->
+  <li class="active" id="calc">
+    <p>This version of GLIMPSE quantifies human health impacts of air
+    pollutants using
+    the <a href="http://www.epa.gov/air/benmap/bpt.html">cost per ton
+    emitted</a>. Emission sources are grouped into broad categories
+    and CMAQ and BenMap simulations are used to calculate the health
+    impacts for each source sector and pollutant. More information is
+    available
+    in <a href="http://www.ncbi.nlm.nih.gov/pubmed/19890404">Fann et
+    al. (2009)</a>.
+  </li>
+  <li id="next">
+    <p>The next version of GLIMPSE will use CMAQ Adjoint for air
+    quality and human health calculations. This will permit a higher
+    level of spatial resolution to more accurately resolve the
+    different health impacts of different emission sources depending
+    on their location.</p>
+  </li>
+
+</ul>
+</div>
+</div>
+
+<hr>
+
+<p class="contact">Comments or Questions? Contact: <a href="mailto:pinder.rob@epa.gov">Rob Pinder</a></p>
+</div>
+	<!-- JS
+	================================================== -->
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="javascripts/tabs.js"></script>
+
+
+  </body>
+</html>

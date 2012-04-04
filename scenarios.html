@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>GLIMPSE Project</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans|Amaranth" media="screen" rel="stylesheet" type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=Fugaz+One' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+	<style type='text/css'>
+	  header nav {font-size:1.25em}
+	  header nav ul{margin:25px 0 0 0;float:right; margin-bottom:1.2em; margin-top:2em}
+	  header nav ul li{display:inline;color:#0079aa;margin-right:20px}
+	  header nav ul li a,header nav ul li a:visited,header nav ul li a:active{color:#0079aa;text-decoration:none}
+	  header nav ul li a.hover{text-decoration:underline}
+	  h3.strapline{color:#555;margin-bottom:1em;text-align:center}
+	  p.contact{color:#555;text-align:center}
+	</style>
+
+	<style type='text/css'>
+	  p { line-height: 1.5 }
+
+	  .charge {
+	  position: relative;
+	  bottom: 0.5em;
+	  color: black;
+	  font-size: 0.8em;
+	  }
+
+	  .sub {
+	  position: relative;
+	  top: 0.3em;
+	  color: black;
+	  font-size: 0.8em;
+	  }
+	</style>
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+
+    <!--- metrics bar chart -->
+  <script>
+    function drawMetrics() {
+    // Create and populate the data table.
+    var data = new google.visualization.DataTable();
+    var raw_data = [['Air quality policy', 9, -1,-47],
+                    ['Greenhouse gas mitigation',  -3,-25, -5],
+                    ['Air quality + greenhouse gas mitigation', -3,-27,-54]];
+  
+    var years = ["TIRF50", "GWP100", "Health Costs 2020"];
+                  
+    data.addColumn('string', 'Year');
+    for (var i = 0; i  < raw_data.length; ++i) {
+			 data.addColumn('number', raw_data[i][0]);    
+			 }
+			 
+     data.addRows(years.length);
+
+     for (var j = 0; j < years.length; ++j) {    
+       data.setValue(j, 0, years[j].toString());    
+     }
+     for (var i = 0; i  < raw_data.length; ++i) {
+       for (var j = 1; j  < raw_data[i].length; ++j) {
+        data.setValue(j-1, i+1, raw_data[i][j]);    
+       }
+     }
+  
+  // Create and draw the visualization.
+  new google.visualization.BarChart(document.getElementById('metrics')).
+      draw(data,
+           {title:"Reduction in climate impacts and human health costs",
+            width:600, height:500,
+            vAxis: {title: ""},
+            hAxis: {title: "Percent change relative to Rollback to 2005 Scenario"}}
+      );
+   }
+      google.setOnLoadCallback(drawMetrics);
+
+
+  </script>
+    <!-- rollback electricity generation -->
+    <script type="text/javascript">
+      
+      function drawRollbackElec() {
+        // Some raw data (not necessarily accurate)
+        var fuels = ["Coal CCS","Coal","Natural Gas CCS","Natural Gas","Oil","Nuclear","Hydropower","Wind","Solar"];                                                  
+        var years = ['2005','2010','2015','2020','2025','2030','2035','2040','2045','2050'];                                                                          
+        var productionByFuel = [[  0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0  ],
+                                [  6912.23 , 7418.76 , 7782.7 , 8204.65 , 8023.95 , 7995.08 , 8022.56 , 8098.07 , 8223.19 , 8271.87 , 8306  ],
+                                [  0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0  ],
+                                [  3631.76 , 3177.21 , 3279.92 , 3090.66 , 3672.47 , 4418.29 , 5027.96 , 5610.57 , 6043.37 , 6511.3 , 6954.02  ],
+                                [  22.22 , 70.63 , 32.26 , 30.15 , 4.02 , 1.55 , 0 , 0 , 0 , 0 , 0  ],
+                                [  2847.63 , 2726.54 , 2776.48 , 2638.62 , 2847.63 , 2847.63 , 2847.63 , 2847.63 , 2847.63 , 2847.63 , 2847.63  ],
+                                [  1080.21 , 870.57 , 907.11 , 939.67 , 972.66 , 999.59 , 1030.11 , 1071.26 , 1086.11 , 1080.4 , 1106.8  ],
+                                [  459.82 , 732.23 , 893.37 , 1096.35 , 1329.1 , 1332.93 , 1412.39 , 1321.41 , 1372.57 , 1415.67 , 1430.41  ],
+                                [  12.09 , 51.47 , 85.87 , 94.59 , 97.21 , 89.03 , 93.62 , 121.33 , 157.15 , 203.68 , 264.16  ]];                                     
+      
+        // Create and populate the data table.
+        var data = new google.visualization.DataTable();                                                                                                              
+        data.addColumn('string', 'Year');                                                                                                                             
+        for (var i = 0; i < fuels.length; ++i) {                                                                                                                      
+          data.addColumn('number', fuels[i]);                                                                                                                         
+        }
+        data.addRows(years.length);                                                                                                                                   
+        for (var i = 0; i < years.length; ++i) {                                                                                                                      
+          data.setCell(i, 0, years[i]);                                                                                                                               
+        }
+        for (var i = 0; i < fuels.length; ++i) {                                                                                                                      
+          var fuel = productionByFuel[i];                                                                                                                             
+          for (var year = 0; year < years.length; ++year) {                                                                                                           
+            data.setCell(year, i + 1, fuel[year]);                                                                                                                    
+          }
+        }
+        // Create and draw the visualization.
+        var ac = new google.visualization.AreaChart(document.getElementById('rollbackElec'));                                                                        
+        ac.draw(data, {
+          title : 'Rollback to 2005: Electricity Generation by Fuel',
+          isStacked: true,
+          areaOpacity: 1,
+          colors: ['#606060','#383838','#33CCFF','#33FFFF','red','orange','#0066FF','#00CCFF','yellow'],
+          width: 880,
+          height: 480,
+          vAxis: {title: "PJ Electricity Generation"},
+          hAxis: {title: "Year"}
+        });                                                                                                                                                           
+      }
+      
+      google.setOnLoadCallback(drawRollbackElec);
+    </script>
+
+
+    <script type="text/javascript">
+      
+      function drawRollbackElec() {
+        // Some raw data (not necessarily accurate)
+        var fuels = ["Coal CCS","Coal","Natural Gas CCS","Natural Gas","Oil","Nuclear","Hydropower","Wind","Solar"];                                                  
+        var years = ['2005','2010','2015','2020','2025','2030','2035','2040','2045','2050'];                                                                          
+        var productionByFuel = [[  0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0  ],
+                                [  6912.23 , 7418.76 , 7782.7 , 8204.65 , 8023.95 , 7995.08 , 8022.56 , 8098.07 , 8223.19 , 8271.87 , 8306  ],
+                                [  0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0  ],
+                                [  3631.76 , 3177.21 , 3279.92 , 3090.66 , 3672.47 , 4418.29 , 5027.96 , 5610.57 , 6043.37 , 6511.3 , 6954.02  ],
+                                [  22.22 , 70.63 , 32.26 , 30.15 , 4.02 , 1.55 , 0 , 0 , 0 , 0 , 0  ],
+                                [  2847.63 , 2726.54 , 2776.48 , 2638.62 , 2847.63 , 2847.63 , 2847.63 , 2847.63 , 2847.63 , 2847.63 , 2847.63  ],
+                                [  1080.21 , 870.57 , 907.11 , 939.67 , 972.66 , 999.59 , 1030.11 , 1071.26 , 1086.11 , 1080.4 , 1106.8  ],
+                                [  459.82 , 732.23 , 893.37 , 1096.35 , 1329.1 , 1332.93 , 1412.39 , 1321.41 , 1372.57 , 1415.67 , 1430.41  ],
+                                [  12.09 , 51.47 , 85.87 , 94.59 , 97.21 , 89.03 , 93.62 , 121.33 , 157.15 , 203.68 , 264.16  ]];                                     
+      
+        // Create and populate the data table.
+        var data = new google.visualization.DataTable();                                                                                                              
+        data.addColumn('string', 'Year');                                                                                                                             
+        for (var i = 0; i < fuels.length; ++i) {                                                                                                                      
+          data.addColumn('number', fuels[i]);                                                                                                                         
+        }
+        data.addRows(years.length);                                                                                                                                   
+        for (var i = 0; i < years.length; ++i) {                                                                                                                      
+          data.setCell(i, 0, years[i]);                                                                                                                               
+        }
+        for (var i = 0; i < fuels.length; ++i) {                                                                                                                      
+          var fuel = productionByFuel[i];                                                                                                                             
+          for (var year = 0; year < years.length; ++year) {                                                                                                           
+            data.setCell(year, i + 1, fuel[year]);                                                                                                                    
+          }
+        }
+        // Create and draw the visualization.
+        var ac = new google.visualization.AreaChart(document.getElementById('rollbackElec'));                                                                        
+        ac.draw(data, {
+          title : 'Rollback to 2005: Electricity Generation by Fuel',
+          isStacked: true,
+          areaOpacity: 1,
+          colors: ['#606060','#383838','#33CCFF','#33FFFF','red','orange','#0066FF','#00CCFF','yellow'],
+          width: 880,
+          height: 480,
+          vAxis: {title: "PJ Electricity Generation"},
+          hAxis: {title: "Year"}
+        });                                                                                                                                                           
+      }
+      
+      google.setOnLoadCallback(drawRollbackElec);
+    </script>
+
+    <!--- Rollback emissions --->
+    <script type="text/javascript">
+      
+      function drawRollbackEmis() {
+        // Some raw data (not necessarily accurate)
+        var species = ["NOx","SO2","CO","BC","OC","CO2","CH4"];
+        var years = ['2005','2010','2015','2020','2025','2030','2035','2040','2045','2050'];                                                                          
+        var emissionsBySpecies = [[  100 , 97 , 102 , 110 , 117 , 124 , 129 , 134 , 137 , 142 , 146  ],
+      [  100 , 84 , 83 , 85 , 85 , 86 , 86 , 87 , 88 , 88 , 89  ],
+      [  100 , 96 , 100 , 103 , 112 , 120 , 125 , 128 , 128 , 131 , 132  ],
+      [  100 , 100 , 118 , 116 , 121 , 126 , 131 , 136 , 141 , 146 , 152  ],
+      [  100 , 98 , 100 , 101 , 103 , 106 , 108 , 111 , 110 , 113 , 116  ],
+      [  100 , 97 , 99 , 103 , 103 , 104 , 107 , 110 , 113 , 116 , 117  ],
+      [  100 , 92 , 90 , 89 , 91 , 94 , 98 , 103 , 109 , 117 , 125  ] ];                                     
+      
+        // Create and populate the data table.
+        var data = new google.visualization.DataTable();                                                                                                              
+        data.addColumn('string', 'Year');                                                                                                                             
+        for (var i = 0; i < species.length; ++i) {                                                                                                                      
+          data.addColumn('number', species[i]);
+        }
+        data.addRows(years.length);                                                                                                                                   
+        for (var i = 0; i < years.length; ++i) {                                                                                                                      
+          data.setCell(i, 0, years[i]);                                                                                                                               
+        }
+        for (var i = 0; i < species.length; ++i) {                                                                                                                      
+          var s = emissionsBySpecies[i];                                                                                                                             
+          for (var year = 0; year < years.length; ++year) {                                                                                                           
+            data.setCell(year, i + 1, s[year]);
+          }
+        }
+        // Create and draw the visualization.
+        var ac = new google.visualization.LineChart(document.getElementById('rollbackEmis'));
+        ac.draw(data, {
+          title : 'Rollback to 2005: Percent change in emissions by species',
+          colors: ['red','yellow','brown','black','green','blue','#33CCFF'],
+          width: 880,
+          height: 480,
+          vAxis: {title: "Percent Change (%)", maxValue: 200, minValue: 0},
+          hAxis: {title: "Year"}
+        });                                                                                                                                                           
+      }
+      
+      google.setOnLoadCallback(drawRollbackEmis);
+    </script>
+
+
+
+
+
+    <!-- aq electricity generation -->
+    <script type="text/javascript">
+      
+      function drawAQElec() {
+
+        var fuels = ["Coal CCS","Coal","Natural Gas CCS","Natural Gas","Oil","Nuclear","Hydropower","Wind","Solar"];                                                  
+        var years = ['2005','2010','2015','2020','2025','2030','2035','2040','2045','2050'];                                                                          
+        var productionByFuel = [[  0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0  ],
+      [  7310.56 , 7480.55 , 7542.23 , 8036.16 , 7814.1 , 7827.45 , 7990.23 , 8053.97 , 8219.54 , 8252.33 , 8245.88  ],
+      [  0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0  ],
+      [  3414.87 , 3119.42 , 3409.21 , 3202.39 , 3764.24 , 4480.03 , 5020.87 , 5622.97 , 6041.32 , 6493.88 , 6962.21  ],
+      [  21.56 , 78.54 , 36.57 , 30.92 , 4.02 , 1.55 , 0 , 0 , 0 , 0 , 0  ],
+      [  2847.63 , 2711.74 , 2769.26 , 2638.71 , 2847.63 , 2847.63 , 2847.63 , 2847.63 , 2847.63 , 2847.63 , 2847.63  ],
+      [  973.74 , 891.45 , 912.65 , 945.68 , 974.12 , 1005.51 , 1034.63 , 1076.86 , 1084.33 , 1081.48 , 1106.8  ],
+      [  447.78 , 774.53 , 944.68 , 1105.99 , 1348.73 , 1334.8 , 1411.56 , 1320.25 , 1370.79 , 1410.21 , 1424.56  ],
+      [  12.09 , 51.47 , 85.87 , 94.59 , 97.23 , 89.03 , 93.62 , 121.33 , 157.15 , 203.68 , 264.16  ]]; 
+      
+        // Create and populate the data table.
+        var data = new google.visualization.DataTable();                                                                                                              
+        data.addColumn('string', 'Year');                                                                                                                             
+        for (var i = 0; i < fuels.length; ++i) {                                                                                                                      
+          data.addColumn('number', fuels[i]);                                                                                                                         
+        }
+        data.addRows(years.length);                                                                                                                                   
+        for (var i = 0; i < years.length; ++i) {                                                                                                                      
+          data.setCell(i, 0, years[i]);                                                                                                                               
+        }
+        for (var i = 0; i < fuels.length; ++i) {                                                                                                                      
+          var fuel = productionByFuel[i];                                                                                                                             
+          for (var year = 0; year < years.length; ++year) {                                                                                                           
+            data.setCell(year, i + 1, fuel[year]);                                                                                                                    
+          }
+        }
+        // Create and draw the visualization.
+        var ac = new google.visualization.AreaChart(document.getElementById('aqElec'));                                                                        
+        ac.draw(data, {
+          title : 'Air quality policy: Electricity Generation by Fuel',
+          isStacked: true,
+          areaOpacity: 1,
+          colors: ['#606060','#383838','#33CCFF','#33FFFF','red','orange','#0066FF','#00CCFF','yellow'],
+          width: 880,
+          height: 480,
+          vAxis: {title: "PJ Electricity Generation"},
+          hAxis: {title: "Year"}
+        });                                                                                                                                                           
+      }
+      
+      google.setOnLoadCallback(drawAQElec);
+    </script>
+
+
+    <!--- AQ emissions --->
+    <script type="text/javascript">
+      
+      function drawAQEmis() {
+        // Some raw data (not necessarily accurate)
+        var species = ["NOx","SO2","CO","BC","OC","CO2","CH4"];
+        var years = ['2005','2010','2015','2020','2025','2030','2035','2040','2045','2050'];                                                                          
+        var emissionsBySpecies = [[  100 , 69 , 53 , 50 , 48 , 48 , 49 , 50 , 52 , 54 , 56  ],
+      [  100 , 67 , 27 , 28 , 28 , 28 , 28 , 29 , 29 , 30 , 30  ],
+      [  100 , 83 , 77 , 69 , 72 , 75 , 77 , 78 , 79 , 81 , 81  ],
+      [  100 , 70 , 61 , 57 , 49 , 44 , 44 , 45 , 45 , 46 , 47  ],
+      [  100 , 87 , 83 , 79 , 77 , 76 , 77 , 78 , 76 , 77 , 79  ],
+      [  100 , 96 , 97 , 101 , 101 , 103 , 106 , 109 , 112 , 115 , 116  ],
+      [  100 , 92 , 90 , 89 , 92 , 94 , 98 , 103 , 110 , 117 , 126  ] ];                                     
+      
+        // Create and populate the data table.
+        var data = new google.visualization.DataTable();                                                                                                              
+        data.addColumn('string', 'Year');                                                                                                                             
+        for (var i = 0; i < species.length; ++i) {                                                                                                                      
+          data.addColumn('number', species[i]);
+        }
+        data.addRows(years.length);                                                                                                                                   
+        for (var i = 0; i < years.length; ++i) {                                                                                                                      
+          data.setCell(i, 0, years[i]);                                                                                                                               
+        }
+        for (var i = 0; i < species.length; ++i) {                                                                                                                      
+          var s = emissionsBySpecies[i];                                                                                                                             
+          for (var year = 0; year < years.length; ++year) {                                                                                                           
+            data.setCell(year, i + 1, s[year]);
+          }
+        }
+        // Create and draw the visualization.
+        var ac = new google.visualization.LineChart(document.getElementById('aqEmis'));
+        ac.draw(data, {
+          title : 'Air quality policy: Percent change in emissions by species',
+          colors: ['red','yellow','brown','black','green','blue','#33CCFF'],
+          width: 880,
+          height: 480,
+          vAxis: {title: "Percent Change (%)", maxValue: 200, minValue: 0},
+          hAxis: {title: "Year"}
+        });                                                                                                                                                           
+      }
+      
+      google.setOnLoadCallback(drawAQEmis);
+    </script>
+
+
+
+    <!-- ghg: electricity generation -->
+    <script type="text/javascript">
+      
+      function drawGHGElec() {
+        // Some raw data (not necessarily accurate)
+        var fuels = ["Coal CCS","Coal","Natural Gas CCS","Natural Gas","Oil","Nuclear","Hydropower","Wind","Solar"];                                                  
+        var years = ['2005','2010','2015','2020','2025','2030','2035','2040','2045','2050'];                                                                          
+        var productionByFuel = [[  0 , 0 , 0 , 1097.23 , 1186.42 , 1043.3 , 1645.38 , 1607.7 , 1612.76 , 1412.28 , 1500.47  ],
+      [  7310.6 , 7425.56 , 7235.54 , 5804.86 , 3476.23 , 2097.23 , 295.39 , 0 , 0 , 0 , 0  ],
+      [  0 , 0 , 0 , 0 , 0 , 0 , 0 , 525.16 , 2309.06 , 3912.85 , 5474.49  ],
+      [  3416.53 , 3068.68 , 3294.01 , 3146.25 , 4442.7 , 4619.22 , 4582.13 , 3407.68 , 2149.63 , 1330.69 , 1187.12  ],
+      [  21.56 , 63.86 , 33.22 , 30.37 , 1.56 , 1.55 , 0 , 0 , 0 , 0 , 0  ],
+      [  2847.63 , 2685.13 , 2886.69 , 2626.34 , 3267.35 , 3523.59 , 3936.26 , 4600.88 , 5518.54 , 5518.54 , 5518.54  ],
+      [  973.74 , 901.27 , 880.17 , 951.31 , 1085.94 , 1093.01 , 1018.55 , 847.56 , 760.38 , 723.68 , 662.94  ],
+      [  448.71 , 830.94 , 982.72 , 1173 , 1610.79 , 2788.57 , 3337.59 , 4775.01 , 5922.31 , 8106.05 , 9239.2  ],
+      [  12.09 , 51.46 , 85.87 , 94.59 , 97.23 , 628.89 , 1480.01 , 2097.62 , 2155.15 , 2301.82 , 2414.8  ]];                                     
+      
+        // Create and populate the data table.
+        var data = new google.visualization.DataTable();                                                                                                              
+        data.addColumn('string', 'Year');                                                                                                                             
+        for (var i = 0; i < fuels.length; ++i) {                                                                                                                      
+          data.addColumn('number', fuels[i]);                                                                                                                         
+        }
+        data.addRows(years.length);                                                                                                                                   
+        for (var i = 0; i < years.length; ++i) {                                                                                                                      
+          data.setCell(i, 0, years[i]);                                                                                                                               
+        }
+        for (var i = 0; i < fuels.length; ++i) {                                                                                                                      
+          var fuel = productionByFuel[i];                                                                                                                             
+          for (var year = 0; year < years.length; ++year) {                                                                                                           
+            data.setCell(year, i + 1, fuel[year]);                                                                                                                    
+          }
+        }
+        // Create and draw the visualization.
+        var ac = new google.visualization.AreaChart(document.getElementById('ghgElec'));                                                                        
+        ac.draw(data, {
+          title : 'Greenhouse gas mitigation policy: Electricity Generation by Fuel',
+          isStacked: true,
+          areaOpacity: 1,
+          colors: ['#606060','#383838','#33CCFF','#33FFFF','red','orange','#0066FF','#00CCFF','yellow'],
+          width: 880,
+          height: 480,
+          vAxis: {title: "PJ Electricity Generation"},
+          hAxis: {title: "Year"}
+        });                                                                                                                                                           
+      }
+      
+      google.setOnLoadCallback(drawGHGElec);
+    </script>
+
+
+
+    <!--- GHG emissions --->
+    <script type="text/javascript">
+      
+      function drawGHGEmis() {
+        // Some raw data (not necessarily accurate)
+        var species = ["NOx","SO2","CO","BC","OC","CO2","CH4"];
+        var years = ['2005','2010','2015','2020','2025','2030','2035','2040','2045','2050'];                                                                          
+        var emissionsBySpecies = [[  100 , 97 , 102 , 110 , 117 , 122 , 130 , 130 , 139 , 146 , 166  ],
+      [  100 , 84 , 82 , 69 , 78 , 59 , 41 , 22 , 20 , 19 , 20  ],
+      [  100 , 96 , 99 , 99 , 103 , 108 , 110 , 110 , 110 , 110 , 113  ],
+      [  100 , 100 , 118 , 116 , 124 , 128 , 144 , 152 , 170 , 175 , 201  ],
+      [  100 , 98 , 99 , 99 , 100 , 100 , 104 , 107 , 111 , 111 , 119  ],
+      [  100 , 96 , 95 , 91 , 84 , 77 , 71 , 64 , 58 , 51 , 51  ],
+      [  100 , 92 , 90 , 89 , 90 , 87 , 86 , 88 , 88 , 100 , 116  ]];                                     
+      
+        // Create and populate the data table.
+        var data = new google.visualization.DataTable();                                                                                                              
+        data.addColumn('string', 'Year');                                                                                                                             
+        for (var i = 0; i < species.length; ++i) {                                                                                                                      
+          data.addColumn('number', species[i]);
+        }
+        data.addRows(years.length);                                                                                                                                   
+        for (var i = 0; i < years.length; ++i) {                                                                                                                      
+          data.setCell(i, 0, years[i]);                                                                                                                               
+        }
+        for (var i = 0; i < species.length; ++i) {                                                                                                                      
+          var s = emissionsBySpecies[i];                                                                                                                             
+          for (var year = 0; year < years.length; ++year) {                                                                                                           
+            data.setCell(year, i + 1, s[year]);
+          }
+        }
+        // Create and draw the visualization.
+        var ac = new google.visualization.LineChart(document.getElementById('ghgEmis'));
+        ac.draw(data, {
+          title : 'Greenhouse gas mitigation policy: Percent change in emissions by species',
+          colors: ['red','yellow','brown','black','green','blue','#33CCFF'],
+          width: 880,
+          height: 480,
+          vAxis: {title: "Percent Change (%)", maxValue: 200, minValue: 0},
+          hAxis: {title: "Year"}
+        });                                                                                                                                                           
+      }
+      
+      google.setOnLoadCallback(drawGHGEmis);
+    </script>
+
+
+
+    <!-- aq+ghg electricity generation -->
+    <script type="text/javascript">
+      
+      function drawAQGHGElec() {
+        // Some raw data (not necessarily accurate)
+        var fuels = ["Coal CCS","Coal","Natural Gas CCS","Natural Gas","Oil","Nuclear","Hydropower","Wind","Solar"];                                                  
+        var years = ['2005','2010','2015','2020','2025','2030','2035','2040','2045','2050'];                                                                          
+        var productionByFuel = [[  0 , 0 , 0 , 615.66 , 778.65 , 772.85 , 1836.87 , 1672.62 , 1322.46 , 1234.28 , 1212.2  ],
+      [  6855.85 , 7377.05 , 7366.41 , 6402.67 , 4747.31 , 3240.5 , 987.2 , 77.52 , 0 , 0 , 0  ],
+      [  0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1328.68 , 4298.49 , 6424.69  ],
+      [  3673.93 , 3111.59 , 3237.05 , 3065.12 , 4105.97 , 4351.67 , 4394.12 , 4351.47 , 2805.41 , 1346.25 , 984.8  ],
+      [  22.22 , 46.65 , 28.94 , 37.21 , 17.4 , 1.55 , 0 , 0 , 0 , 0 , 0  ],
+      [  2847.63 , 2716.12 , 2909.36 , 2703.97 , 3244.64 , 3487.02 , 3877.38 , 4506.06 , 5518.54 , 5518.54 , 5518.54  ],
+      [  1080.21 , 866.81 , 906.41 , 937.2 , 1051.34 , 1105.43 , 1106.8 , 1106.8 , 1039.43 , 695.62 , 641.87  ],
+      [  465.02 , 793.26 , 950.04 , 1127.87 , 1467.83 , 2749.53 , 2825.76 , 3854.66 , 5268.42 , 8451.19 , 9233.32  ],
+      [  12.09 , 51.46 , 85.87 , 94.59 , 97.23 , 290.4 , 1802.44 , 2097.62 , 2133.44 , 2296.84 , 2465.94  ]];
+      
+        // Create and populate the data table.
+        var data = new google.visualization.DataTable();                                                                                                              
+        data.addColumn('string', 'Year');                                                                                                                             
+        for (var i = 0; i < fuels.length; ++i) {                                                                                                                      
+          data.addColumn('number', fuels[i]);                                                                                                                         
+        }
+        data.addRows(years.length);                                                                                                                                   
+        for (var i = 0; i < years.length; ++i) {                                                                                                                      
+          data.setCell(i, 0, years[i]);                                                                                                                               
+        }
+        for (var i = 0; i < fuels.length; ++i) {                                                                                                                      
+          var fuel = productionByFuel[i];                                                                                                                             
+          for (var year = 0; year < years.length; ++year) {                                                                                                           
+            data.setCell(year, i + 1, fuel[year]);                                                                                                                    
+          }
+        }
+        // Create and draw the visualization.
+        var ac = new google.visualization.AreaChart(document.getElementById('aqghgElec'));
+        ac.draw(data, {
+          title : 'Air quality and greenhouse gas mitigation policy: Electricity Generation by Fuel',
+          isStacked: true,
+          areaOpacity: 1,
+          colors: ['#606060','#383838','#33CCFF','#33FFFF','red','orange','#0066FF','#00CCFF','yellow'],
+          width: 880,
+          height: 480,
+          vAxis: {title: "PJ Electricity Generation"},
+          hAxis: {title: "Year"}
+        });                                                                                                                                                           
+      }
+      
+      google.setOnLoadCallback(drawAQGHGElec);
+    </script>
+
+    <!--- AQ+GHG emissions --->
+    <script type="text/javascript">
+      
+      function drawAQGHGEmis() {
+        // Some raw data (not necessarily accurate)
+        var species = ["NOx","SO2","CO","BC","OC","CO2","CH4"];
+        var years = ['2005','2010','2015','2020','2025','2030','2035','2040','2045','2050'];                                                                          
+        var emissionsBySpecies = [[  100 , 69 , 53 , 50 , 47 , 43 , 45 , 44 , 45 , 47 , 51  ],
+      [  100 , 67 , 27 , 24 , 21 , 16 , 14 , 13 , 12 , 13 , 13  ],
+      [  100 , 83 , 77 , 68 , 70 , 72 , 73 , 74 , 71 , 71 , 72  ],
+      [  100 , 70 , 61 , 55 , 47 , 42 , 41 , 41 , 41 , 41 , 42  ],
+      [  100 , 87 , 82 , 77 , 72 , 69 , 68 , 68 , 66 , 64 , 65  ],
+      [  100 , 95 , 95 , 90 , 83 , 77 , 70 , 64 , 57 , 50 , 50  ],
+      [  100 , 92 , 90 , 90 , 91 , 89 , 91 , 87 , 92 , 105 , 118  ]]; 
+      
+        // Create and populate the data table.
+        var data = new google.visualization.DataTable();                                                                                                              
+        data.addColumn('string', 'Year');                                                                                                                             
+        for (var i = 0; i < species.length; ++i) {                                                                                                                      
+          data.addColumn('number', species[i]);
+        }
+        data.addRows(years.length);                                                                                                                                   
+        for (var i = 0; i < years.length; ++i) {                                                                                                                      
+          data.setCell(i, 0, years[i]);                                                                                                                               
+        }
+        for (var i = 0; i < species.length; ++i) {                                                                                                                      
+          var s = emissionsBySpecies[i];                                                                                                                             
+          for (var year = 0; year < years.length; ++year) {                                                                                                           
+            data.setCell(year, i + 1, s[year]);
+          }
+        }
+        // Create and draw the visualization.
+        var ac = new google.visualization.LineChart(document.getElementById('aqghgEmis'));
+        ac.draw(data, {
+          title : 'Air quality and greenhouse gas mitigation policy: Percent change in emissions by species',
+          colors: ['red','yellow','brown','black','green','blue','#33CCFF'],
+          width: 880,
+          height: 480,
+          vAxis: {title: "Percent Change (%)", maxValue: 200, minValue: 0},
+          hAxis: {title: "Year"}
+        });                                                                                                                                                           
+      }
+      
+      google.setOnLoadCallback(drawAQGHGEmis);
+    </script>
+
+
+
+  </head>
+  <body>
+
+
+
+<div class="container">
+  <div class='four columns'>
+    <header>
+      <nav><ul><li>
+	    <a href="/"><span style="color: #FF6666;font-family: Fugaz One;font-size:3.2em">GLIMPSE</span></a></li>
+	</ul>
+      </nav>
+  </div>
+  <header>
+    <nav class='twelve columns'>
+      <ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="/rf">Radiative Forcing</a></li>
+	<li><a href="/health">Human Health</a></li>
+	<li><a href="/ecosystems">Ecosystems</a></li>
+	<li><a href="/scenarios">Scenarios</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<div class="row">
+<br>
+</div>
+
+
+
+
+<div class="row">
+
+<div class="five columns">
+  <h3>Scenarios</h3>
+  <p>To demonstrate the capabilities of GLIMPSE, we have developed
+    four scenarios that are meant to illustrate US policy options from
+    2005 -- 2055.</p>
+  <ul>
+    <li><span style="font-weight:bold">Rollback to 2005</span>: All
+      policies put into effect after 2005 are revoked. Emissions grow
+      as population and activities grows over time.</li>
+    <li><span style="font-weight:bold;color:#3366CC">Air quality
+      policy</span>: Current air quality policies remain in
+      effect. Large reductions in air pollutants; growth in greenhouse
+      gases.</li>
+    <li><span style="font-weight:bold;color:#DC3912">Greenhouse gas
+      mitigation</span>: CO<span class="sub">2</span> emissions are
+      reduced at the rate of 1% per year, leading to 50% reduction by
+      2055. This also leads to air quality improvements, but their
+      implementation is slower.</li>
+    <li><span style="font-weight:bold;color:#FF9900">Air quality and
+      greenhouse gas policy</span>: Both implementation of current air
+      quality rules and 1% per year reduction in
+      CO<span class="sub">2</span>.</li>
+
+    <p>For each scenario, we calculate the change in climate and human
+    health impacts, relative to the Rollback to 2005 scenario. Each of
+    the metrics are described in more detail below.
+    </p>
+</div>
+
+<div class="ten columns">
+  <div id="metrics" style="width: 600px; height: 500px;"></div>
+  <p>While the air quality scenario causes a substantial decrease in
+  human health damages, this scenario also leads to an increase in warming. The
+  greenhouse gas scenario has very little health benefits in 2020,
+  because the emission reductions are phased in gradually. 
+</div>
+</div>
+
+<div class="row">
+  <div class="five columns">
+    <h6><a href="/rf#metrics">TIRF50</a></h6> <p>The total integrated
+    radiative forcing (TIRF) over the 50 years from 2005 -- 2055. This
+    is a measure of the climate impacts of the short-lived climate
+    forcers.</p>
+    </div>
+
+  <div class="five columns">
+    <h6><a href="/rf#metrics">GWP100</a></h6> <p>The global warming
+    potential over the next 100 years.  This is a measure of the
+    climate impacts of the greenhouse gases.</p>
+    </div>
+
+  <div class="five columns">
+    <h6><a href="/health">Health Costs 2020</a></h6> <p>The human
+    health costs of air pollution in the year 2020 of the
+    scenario.</p>
+    </div>
+
+</div>
+
+<div class="sixteen columns">
+<!-- Standard <ul> with class of "tabs" -->
+<ul class="tabs">
+  <!-- Give href an ID value of corresponding "tabs-content" <li>'s -->
+  <li><a class="active" href="#rollback">Rollback to 2005</a></li>
+
+  <li><a href="#aq">Air quality policy</a></li>
+  <li><a href="#ghg">Greenhouse gas policy</a></li>
+  <li><a href="#aq_ghg">Air quality + greenhouse gas</a></li>
+</ul>
+
+<!-- <\!-- Standard <ul> with class of "tabs-content" -\-> -->
+<ul class="tabs-content">
+  <!-- Give ID that matches HREF of above anchors -->
+  <li class="active" id="rollback">
+    <div class="row sixteen columns">
+      <div class="twelve columns">
+	<p>Scenario that returns emission factors to 2005 levels, so
+	future growth causes increasing emissions of air pollutants
+	and greenhouse gases.</p>
+      </div>
+      <div class="three columns">
+	<a href="#" class="button">Download Scenario</a>
+      </div>
+
+      <div id="rollbackElec" style="width: 880px; height: 480px;"></div>
+      <div id="rollbackEmis" style="width: 880px; height: 480px;"></div>
+
+    </div>
+  </li>
+  <li id="aq">
+    <div class="row sixteen columns">
+      <div class="twelve columns">
+	<p>Scenario representing current air quality regulations,
+	including reductions in emissions from power plants and
+	improved emission control systems on vehicles. No additional
+	policies go into effect.</p>
+      </div>
+      <div class="three columns">
+	<a href="#" class="button">Download Scenario</a>
+      </div>
+      
+      <div id="aqElec" style="width: 880px; height: 480px;"></div>
+      <div id="aqEmis" style="width: 880px; height: 480px;"></div>
+
+    </div>
+  </li>
+
+  <li id="ghg">
+    <div class="row sixteen columns">
+      <div class="twelve columns">
+	<p>CO<span class="sub">2</span> emissions are gradually
+	decreased to 50% of current levels by 2050. Air quality rules
+	match the Rollback scenario.</p>
+      </div>
+      <div class="three columns">
+	<a href="#" class="button">Download Scenario</a>
+      </div>
+      <div id="ghgElec" style="width: 880px; height: 480px;"></div>
+      <div id="ghgEmis" style="width: 880px; height: 480px;"></div>
+
+    </div>
+  </li>
+
+
+  </li>
+  <li id="aq_ghg">
+
+    <div class="sixteen columns">
+      <div class="twelve columns">
+	<p>Current air quality rules are in effect, and
+	CO<span class="sub">2</span> emissions are gradually decreased
+	to 50% of current levels by 2050.</p>
+      </div>
+      <div class="three columns">
+	<a href="#" class="button">Download Scenario</a>
+      </div>
+
+      <div id="aqghgElec" style="width: 880px; height: 480px;"></div>
+      <div id="aqghgEmis" style="width: 880px; height: 480px;"></div>
+      <a href="#" class="button">Download</a>
+    </div>
+  </li>
+
+</ul>
+</div>
+</div>
+
+<hr>
+
+<p class="contact">Comments or Questions? Contact: <a href="mailto:pinder.rob@epa.gov">Rob Pinder</a></p>
+</div>
+	<!-- JS
+	================================================== -->
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="javascripts/tabs.js"></script>
+
+
+  </body>
+</html>
