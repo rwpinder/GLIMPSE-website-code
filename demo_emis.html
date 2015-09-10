@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>GLIMPSE Project</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans|Amaranth" media="screen" rel="stylesheet" type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=Fugaz+One' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+	<style type='text/css'>
+	  header nav {font-size:1.25em}
+	  header nav ul{margin:25px 0 0 0;float:right; margin-bottom:1.2em; margin-top:2em}
+	  header nav ul li{display:inline;color:#0079aa;margin-right:20px}
+	  header nav ul li a,header nav ul li a:visited,header nav ul li a:active{color:#0079aa;text-decoration:none}
+	  header nav ul li a.hover{text-decoration:underline}
+	  h3.strapline{color:#555;margin-bottom:1.2em;margin-top:0.0em;text-align:center}
+	  p.contact{color:#555;text-align:center}
+	  
+	</style>
+
+	<style type='text/css'>
+	  p { line-height: 1.5 }
+
+	  .charge {
+	  position: relative;
+	  bottom: 0.5em;
+	  color: black;
+	  font-size: 0.8em;
+	  }
+
+	  .sub {
+	  position: relative;
+	  top: 0.3em;
+	  color: black;
+	  font-size: 0.8em;
+	  }
+	</style>
+
+
+<!--
+You are free to copy and use this sample in accordance with the terms of the
+Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
+-->
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1.1', {packages: ['corechart', 'controls']});
+    </script>
+
+
+    <link class="include" rel="stylesheet" type="text/css" href="http://www.jqplot.com/deploy/dist/jquery.jqplot.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.jqplot.com/deploy/dist/examples/examples.min.css" />
+    <link type="text/css" rel="stylesheet" href="http://www.jqplot.com/deploy/dist/examples/syntaxhighlighter/styles/shCoreDefault.min.css" />
+    <link type="text/css" rel="stylesheet" href="http://www.jqplot.com/deploy/dist/examples/syntaxhighlighter/styles/shThemejqPlot.min.css" />
+  
+  <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../excanvas.js"></script><![endif]-->
+    <script class="include" type="text/javascript" src="http://www.jqplot.com/deploy/dist/jquery.min.js"></script>
+ 
+    <script type="text/javascript">
+
+var chart;
+var slider;
+
+function drawVisualization() {
+  // Create and populate the data table.
+  var data = google.visualization.arrayToDataTable([
+    ['Metric', 'Benefits', 'Definition'],
+    ['Air Quality and Human Health', 0,'The emissions sources of carbon dioxide are also responsible for air pollutants that harm human health. Reductions in CO2 emissions yield co-benefits by improving human health'],
+    ['Crop Damages from ozone', 0,'The emissions sources of carbon dioxide are also contibute to near surface ozone -- a powerful oxidant that harms crops and trees'],
+    ['Timber Damages from ozone', 0,'The emissions sources of carbon dioxide are also contibute to near surface ozone -- a powerful oxidant that harms crops and trees'],
+    ['Near-term climate change', 0,'Since carbon dioxide persists in the atmosphere for centuries, reducing emissions earlier can lead to more substantial benefits.'],
+    ['Long-term global warming', 0, 'The total amount of carbon dioxide emitted controls the magnitude of future warming.'],
+    ['',100,'']
+
+  ]);
+
+
+   <!-- chart = new google.visualization.ColumnChart(document.getElementById('visualization')); -->
+   <!-- format = {title:"Yearly Coffee Consumption by Country", -->
+   <!--                width:600, height:400, -->
+   <!--                hAxis: {title: "Benefit"}}; -->
+        // Define a pie chart
+        chart = new google.visualization.ChartWrapper({
+          'chartType': 'BarChart',
+          'containerId': 'chart',
+          'options': {
+            'chartArea':{left:200},
+           'hAxis.minValue':0,
+           'hAxis.maxValue':100,
+            'width': 500,
+            'height': 300,
+            'title':'Benefits ($B)',
+            animation:{
+             duration: 1000,
+             easing: 'out'},
+          },
+        'view':{'columns':[0,1]}
+        });
+
+
+        slider = new google.visualization.ControlWrapper({
+          'controlType': 'NumberRangeFilter',
+          'containerId': 'control',
+          'options': {
+            'filterColumnLabel': 'Benefits',
+            'ui': {'labelStacking': 'vertical'}
+          }
+        });
+
+      $.jqplot.config.enablePlugins = true;
+
+//      s1 = [['2015',5.5],['2020',5],['2025',4.5],['2030', 4]];
+      s1 = [5.5,5.7,5.9,6.1];
+      <!-- var fourParts = [[25.,25.,25.,25.], -->
+      <!--              [25.,25.,25.,25.], -->
+      <!--              [25.,25.,25.,25.], -->
+      <!--              [25.,25.,25.,25.], -->
+      <!--              [25.,25.,25.,25.]]; -->
+
+      var baseParts = [[25.,25.,25.,25.],
+                   [25.,25.,25.,25.],
+                   [25.,25.,25.,25.],
+                   [55.,25.,15.,5.],
+                   [25.,25.,25.,25.]];
+      var fourParts = [[25.,25.,25.,25.],
+                   [25.,25.,25.,25.],
+                   [25.,25.,25.,25.],
+                   [55.,25.,15.,5.],
+                   [25.,25.,25.,25.]];
+
+      ticks = ['2015','2020','2025','2030'];
+      plot1 = $.jqplot('chart1',[s1],{
+         title: 'Carbon Dioxide Emissions (Tg)',
+         axes: {
+             xaxis: {
+                renderer: $.jqplot.CategoryAxisRenderer,
+                ticks: ticks
+             },
+             yaxis: {
+                 min:0,
+                 tickOptions: {
+                     formatString: '%.2f'
+                 }
+             }
+         },
+         highlighter: {
+             sizeAdjust: 5,
+             tooltipLocation: 'n',
+             tooltipAxes: 'y',
+             tooltipFormatString: '<b><i><span style="color:red;">emissions</span></i></b> %.2f (Tg)',
+             useAxesFormatters: false
+         },
+         cursor: {
+             show: true
+         }
+      });
+
+      $('#chart1').bind('jqplotDataClick', 
+      function (ev, seriesIndex, pointIndex, d) {
+          var change = (d[1] - s1[pointIndex]) / s1[pointIndex];
+
+          fourParts[0][pointIndex] = baseParts[0][pointIndex]*(1+change*0.3);
+          var a = 100-Math.floor(fourParts[0][0]+fourParts[0][1]+fourParts[0][2]+fourParts[0][3]); 
+          data.setCell(0,1,a);
+
+          i = 1;
+          fourParts[i][pointIndex] = baseParts[i][pointIndex]*(1+change*0.2);
+          var a = 100-Math.floor(fourParts[i][0]+fourParts[i][1]+fourParts[i][2]+fourParts[i][3]);
+          data.setCell(i,1,a);
+
+          i = 2;
+          fourParts[i][pointIndex] = baseParts[i][pointIndex]*(1+change*0.15);
+          var a = 100-Math.floor(fourParts[i][0]+fourParts[i][1]+fourParts[i][2]+fourParts[i][3]);
+          data.setCell(i,1,a);
+
+          i = 3;
+          fourParts[i][pointIndex] = baseParts[i][pointIndex]*(1+change);
+          var a = 100-Math.floor(fourParts[i][0]+fourParts[i][1]+fourParts[i][2]+fourParts[i][3]);
+          data.setCell(i,1,a);
+
+          i = 4;
+          fourParts[i][pointIndex] = baseParts[i][pointIndex]*(1+change);
+          var a = 100-Math.floor(fourParts[i][0]+fourParts[i][1]+fourParts[i][2]+fourParts[i][3]);
+          data.setCell(i,1,a);
+
+
+
+
+
+          <!-- data.setCell(0,1,Math.floor(data.getValue(0,1) + 25 * change*0.3)); -->
+          <!-- data.setCell(1,1,Math.floor(data.getValue(1,1) + 25 * change)); -->
+      <!-- d[0] = [s1][seriesIndex][0]; -->
+      <!-- var num = Math.floor(d[1]*100)/100; -->
+      chart.draw();
+      <!-- $('#info3').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+a); -->
+      }); 
+
+
+        // Create the dashboard
+        var dashboard = new google.visualization.Dashboard(
+            document.getElementById('dashboard'));
+      
+        // Register a listener to be notified once the dashboard is ready.
+        google.visualization.events.addListener(dashboard, 'ready', dashboardReady);
+      
+        // Configure the dashboard so that the slider to affect the piechart,
+        // then draw the dashboard.
+        dashboard.bind(slider, chart).draw(data);
+
+
+
+      }
+      
+      function dashboardReady() {
+        // The dashboard is ready to accept interaction. Configure the buttons to
+        // programmatically affect the dashboard when clicked.
+      
+        // Change the slider selected range when clicked.
+        <!-- document.getElementById('rangeButton').onclick = function() { -->
+        <!--   slider.setState({'lowValue': 2, 'highValue': 5}); -->
+        <!--   slider.draw(); -->
+        <!-- }; -->
+      
+        <!-- // Change the pie chart rendering options when clicked. -->
+        <!-- document.getElementById('optionsButton').onclick = function() { -->
+        <!--   piechart.setOption('is3D', true); -->
+        <!--   piechart.draw(); -->
+        <!-- }; -->
+
+
+	google.visualization.events.addListener(chart.getChart(), 'select', function() {
+      	 var curRow = chart.getChart().getSelection();
+	 var item = curRow[0];
+	 var nCurRow = item.row;
+      	 document.getElementById('metricText').innerHTML = '<b>'+chart.getDataTable().getValue(nCurRow, 0)+'</b>: '+chart.getDataTable().getValue(nCurRow,2);
+      	});
+
+      }
+      google.setOnLoadCallback(drawVisualization);
+    </script>
+  </head>
+
+  <body>
+<div class="container">
+<div class='four columns'>
+<header>
+<nav><ul><li>
+      <a href="/"><span style="color: #FF6666;font-family: Fugaz One;font-size:3.2em">GLIMPSE</span></a></li>
+</ul>
+</nav>
+<header>
+</div>
+<header>
+<nav class='twelve columns'>
+<ul>
+<li><a href="/about">About</a></li>
+<li><a href="/rf">Radiative Forcing</a></li>
+<li><a href="/health">Human Health</a></li>
+<li><a href="/ecosystems">Ecosystems</a></li>
+<li><a href="/scenarios">Scenarios</a></li>
+</ul>
+</nav>
+</header>
+</div>
+
+<div class="row"><br></div>
+
+
+  <div class="sixteen columns">
+    <p class="text">Drag the points to adjust the trajectory of emissions. Click on the bars to learn more about that metric.</p>
+    <div class="row">
+      <div class="four columns example-plot" style="width:300px" id="chart1"></div>  
+    
+      <div class="six columns" id="dashboard">      
+	<div id="chart"></div>
+	<div id="control" style="display:none"></div>
+      <div style=" width:500px" id="metricText"></div>
+      </div>
+
+
+    </div>
+    <!-- <span id="info3">Nothing yet.</span> -->
+
+
+<!-- Example scripts go here -->
+    </div>
+
+<!-- End example scripts -->
+
+<!-- Don't touch this! -->
+
+
+    <script class="include" type="text/javascript" src="http://www.jqplot.com/deploy/dist/jquery.jqplot.min.js"></script>
+    <script type="text/javascript" src="http://www.jqplot.com/deploy/dist/examples/syntaxhighlighter/scripts/shCore.min.js"></script>
+    <script type="text/javascript" src="http://www.jqplot.com/deploy/dist/examples/syntaxhighlighter/scripts/shBrushJScript.min.js"></script>
+    <script type="text/javascript" src="http://www.jqplot.com/deploy/dist/examples/syntaxhighlighter/scripts/shBrushXml.min.js"></script>
+<!-- End Don't touch this! -->
+
+<!-- Additional plugins go here -->
+
+    <script class="include" type="text/javascript" src="http://www.jqplot.com/deploy/dist/plugins/jqplot.dateAxisRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="http://www.jqplot.com/deploy/dist/plugins/jqplot.barRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="http://www.jqplot.com/deploy/dist/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="http://www.jqplot.com/deploy/dist/plugins/jqplot.cursor.min.js"></script>
+    <script class="include" type="text/javascript" src="http://www.jqplot.com/deploy/dist/plugins/jqplot.highlighter.min.js"></script>
+    <script class="include" type="text/javascript" src="http://www.jqplot.com/deploy/dist/plugins/jqplot.dragable.min.js"></script>
+    <!-- <script class="include" type="text/javascript" src="http://www.jqplot.com/deploy/dist/plugins/jqplot.trendline.min.js"></script>  -->
+
+<!-- End additional plugins -->
+
+
+</div>
+
+
+
+
+  </body>
+</html>

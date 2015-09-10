@@ -1294,85 +1294,75 @@
     <h3>Radiative forcing efficiency</h3> 
 
     <p> The radiative effects of aerosols and gases strongly depend on
-      where they are emitted. We have calculated the change in global
-      direct radiative forcing per unit emissions of black carbon,
-      organic carbon, and sulfate. These are available for download,
-      after spatial averaging to the state and country level. The
-      global gridded data are also available for
-      download. <a href="http://pubs.acs.org/doi/abs/10.1021/es301993s">
-      Read about how these values are calculated.</a></p>
+      where they are emitted. We have calculated the change in global direct
+      radiative forcing per unit emissions of black carbon, organic carbon,
+      and sulfate. These are available for download, after spatial averaging
+      to the state and country level. The global gridded data are
+      also available for download.</p>
   </div>
 
   <div class="sixteen columns">
     <!-- Standard <ul> with class of "tabs" -->
-    <ul class="tabs">
-      <!-- Give href an ID value of corresponding "tabs-content" <li>'s -->
-      <li><a class="active" href="#states">States</a></li>
-      <li><a href="#country">Countries</a></li>
-      <li><a href="#gridded">Global</a></li>
-      <li><a href="#metrics">Metrics</a></li>
-    </ul>
     <!-- <\!-- Standard <ul> with class of "tabs-content" -\-> -->
 
 
-    <ul class="tabs-content">
       <!-- Give ID that matches HREF of above anchors -->
-
-      <li class="active" id="states">
-	<div id="StateDashboard">
-	  <div class="row" class="sixteen columns">
-	    <div class="ten columns">
-	      <div class="five columns">
-		Select a compound
-		<div id="StateControl"></div>
-	      </div>
-	      <p align="right">Global direct radiative forcing per unit emissions (mW m<span class="charge">-2</span> Tg<span class="charge">-1</span>)</p>
+      <h4>US States</h4>
+      <div id="StateDashboard">
+	<div class="row" class="sixteen columns">
+	  <div class="ten columns">
+	    <div class="five columns">
+	      Select a compound
+	      <div id="StateControl"></div>
 	    </div>
-	  </div>
-	  <div class="row" class="sixteen columns">
-	    <div style="float: left;" id="StateChart"></div>
+	    <p align="right">Global direct radiative forcing per unit emissions (mW m<span class="charge">-2</span> Tg<span class="charge">-1</span>)</p>
 	  </div>
 	</div>
 	<div class="row" class="sixteen columns">
-	  <a href="static/state_code.txt" class="button">Download Data</a>
-	  <a href="images/state_code.pdf" class="button">Download Figure</a>
+	  <div style="float: left;" id="StateChart"></div>
 	</div>
-      </li>
+      </div>
+      <div class="row" class="sixteen columns">
+	<a href="static/state_code.txt" class="button">Download Data</a>
+	<a href="images/state_code.pdf" class="button">Download Figure</a>
+      </div>
 
 
 
 
-      <li id="country">
-	<div id="CountryDashboard">
-	  <div class="row" class="sixteen columns">
-	    <div class="ten columns">
-	      <div class="five columns">
-		Select a compound
-		<div id="CountryControl"></div>
-	      </div>
-	      <p align="right">Global direct radiative forcing per unit emissions (mW m<span class="charge">-2</span> Tg<span class="charge">-1</span>)</p>
-	    </div>
-	  </div>
 
-	  <div class="row" class="sixteen columns">
-	    <div style="float: left;" id="CountryChart"></div>
-	  </div>
-	</div>
+      <h4>World Nations</h4>
+      <div id="CountryDashboard">
 	<div class="row" class="sixteen columns">
-	  <a href="static/country_code.txt" class="button">Download Data</a>
-	  <a href="images/country_rf.pdf" class="button">Download Figure</a>
+	  <div class="ten columns">
+	    <div class="five columns">
+	      Select a compound
+	      <div id="CountryControl"></div>
+	    </div>
+	    <p align="right">Global direct radiative forcing per unit emissions (mW m<span class="charge">-2</span> Tg<span class="charge">-1</span>)</p>
+	  </div>
 	</div>
-      </li>
+	
+	<div class="row" class="sixteen columns">
+	  <div style="float: left;" id="CountryChart"></div>
+	</div>
+      </div>
+      <div class="row" class="sixteen columns">
+	<a href="static/country_code.txt" class="button">Download Data</a>
+	<a href="images/country_rf.pdf" class="button">Download Figure</a>
+      </div>
 
-      <li id="gridded">
-	<p>Gridded global values at 2 by 2.5 degrees are available as
-	a NetCDF file.</p>
-	<a href="#" class="button">Download</a>
-      </li>
 
-      <li  id="metrics">
-	<div class="row thirteen columns">
-	  <p>Climate change can be dangerous for two reasons. First,
+      <h4>Gridded Data</h4>
+      <div class="row" class="sixteen columns">
+      <p>Gridded global values at 2 by 2.5 degrees are available as
+      a NetCDF file.</p>
+      <a href="#" class="button">Download</a>
+      </div>
+
+      <h4>Metrics</h4>
+      <div class="row thirteen columns">
+	<p>Climate change can be dangerous for two reasons. First,
 	  if the rate of climate change is faster than we can adapt,
 	  then damages are likely to be substantial. Second, if the
 	  magnitude of climate change is very large, than the impacts
@@ -1425,16 +1415,13 @@
 	    rate of climate change.</p>
 	</div>
 
-      </li>
 
-
-    </ul>
+      </div>
   </div>
-</div>
     
 
 
-  </div>
+</div>
 
 <hr>
 

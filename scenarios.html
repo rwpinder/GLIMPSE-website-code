@@ -73,11 +73,11 @@
     function drawMetrics() {
     // Create and populate the data table.
     var data = new google.visualization.DataTable();
-    var raw_data = [['Air quality policy', 9, -1,-47],
-                    ['Greenhouse gas mitigation',  -3,-25, -5],
-                    ['Air quality + greenhouse gas mitigation', -3,-27,-54]];
+    var raw_data = [['Air quality policy',-9, 1, 47],
+                    ['Greenhouse gas mitigation',  3, 25, 5],
+                    ['Air quality + greenhouse gas mitigation', 3, 27, 54]];
   
-    var years = ["TIRF50", "GWP100", "Health Costs 2020"];
+    var years = ["TIRF50", "GWP100", "Health Benefits 2020"];
                   
     data.addColumn('string', 'Year');
     for (var i = 0; i  < raw_data.length; ++i) {
@@ -98,7 +98,7 @@
   // Create and draw the visualization.
   new google.visualization.BarChart(document.getElementById('metrics')).
       draw(data,
-           {title:"Reduction in climate impacts and human health costs",
+           {title:"Climate change mitigation and human health benefits",
             width:600, height:500,
             vAxis: {title: ""},
             hAxis: {title: "Percent change relative to Rollback to 2005 Scenario"}}
@@ -620,10 +620,11 @@
 
 <div class="ten columns">
   <div id="metrics" style="width: 600px; height: 500px;"></div>
-  <p>While the air quality scenario causes a substantial decrease in
-  human health damages, this scenario also leads to an increase in warming. The
-  greenhouse gas scenario has very little health benefits in 2020,
-  because the emission reductions are phased in gradually. 
+  <p>While the air quality scenario causes a substantial improvement
+  human health, this scenario also leads to an increase in warming
+  over the next 50 years. The greenhouse gas scenario has
+  very little health benefits in 2020, because the emission reductions
+  are phased in gradually.
 </div>
 </div>
 
@@ -631,20 +632,20 @@
   <div class="five columns">
     <h6><a href="/rf#metrics">TIRF50</a></h6> <p>The total integrated
     radiative forcing (TIRF) over the 50 years from 2005 -- 2055. This
-    is a measure of the climate impacts of the short-lived climate
-    forcers.</p>
+    is a measure of the impacts of the short-lived climate
+    forcers. Positive values denote a decrease in impacts.</p>
     </div>
 
   <div class="five columns">
     <h6><a href="/rf#metrics">GWP100</a></h6> <p>The global warming
     potential over the next 100 years.  This is a measure of the
-    climate impacts of the greenhouse gases.</p>
+    impacts of the greenhouse gases. Positive values denote a decrease in impacts.</p>
     </div>
 
   <div class="five columns">
-    <h6><a href="/health">Health Costs 2020</a></h6> <p>The human
+    <h6><a href="/health">Health Benefits 2020</a></h6> <p>The avoided human
     health costs of air pollution in the year 2020 of the
-    scenario.</p>
+    scenario. This is an metric for near-term health benefits.</p>
     </div>
 
 </div>

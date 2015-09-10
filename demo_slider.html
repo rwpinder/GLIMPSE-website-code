@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>GLIMPSE Project</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans|Amaranth" media="screen" rel="stylesheet" type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=Fugaz+One' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+	<style type='text/css'>
+	  header nav {font-size:1.25em}
+	  header nav ul{margin:25px 0 0 0;float:right; margin-bottom:1.2em; margin-top:2em}
+	  header nav ul li{display:inline;color:#0079aa;margin-right:20px}
+	  header nav ul li a,header nav ul li a:visited,header nav ul li a:active{color:#0079aa;text-decoration:none}
+	  header nav ul li a.hover{text-decoration:underline}
+	  h3.strapline{color:#555;margin-bottom:1.2em;margin-top:0.0em;text-align:center}
+	  p.contact{color:#555;text-align:center}
+	  
+	</style>
+
+	<style type='text/css'>
+	  p { line-height: 1.5 }
+
+	  .charge {
+	  position: relative;
+	  bottom: 0.5em;
+	  color: black;
+	  font-size: 0.8em;
+	  }
+
+	  .sub {
+	  position: relative;
+	  top: 0.3em;
+	  color: black;
+	  font-size: 0.8em;
+	  }
+	</style>
+
+
+<!--
+You are free to copy and use this sample in accordance with the terms of the
+Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
+-->
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1.1', {packages: ['corechart', 'controls']});
+    </script>
+
+
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+
+
+    <script type="text/javascript">
+
+var chart;
+var slider2;
+
+function drawVisualization() {
+  // Create and populate the data table.
+  var benData = google.visualization.arrayToDataTable([
+    ['Metric', 'Benefits', 'Definition'],
+    ['Air Quality and Human Health', 0,'The emissions sources of carbon dioxide are also responsible for air pollutants that harm human health. Reductions in CO2 emissions yield co-benefits by improving human health'],
+    ['Crop Damages from ozone', 0,'The emissions sources of carbon dioxide are also contibute to near surface ozone -- a powerful oxidant that harms crops and trees'],
+    ['Timber Damages from ozone', 0,'The emissions sources of carbon dioxide are also contibute to near surface ozone -- a powerful oxidant that harms crops and trees'],
+    ['Near-term climate change', 0,'Since carbon dioxide persists in the atmosphere for centuries, reducing emissions earlier can lead to more substantial benefits.'],
+    ['Long-term global warming', 0, 'The total amount of carbon dioxide emitted controls the magnitude of future warming.'],
+    ['',100,'']
+
+  ]);
+
+
+
+
+        // Define a benefits bar chart
+        benChart = new google.visualization.ChartWrapper({
+          'chartType': 'BarChart',
+          'containerId': 'benChart',
+          'options': {
+            'chartArea':{left:200},
+           'hAxis.minValue':0,
+           'hAxis.maxValue':100,
+            'width': 500,
+            'height': 300,
+            'title':'Benefits ($B)',
+            animation:{
+             duration: 1000,
+             easing: 'out'},
+          },
+        'view':{'columns':[0,1]}
+        });
+
+
+        slider2 = new google.visualization.ControlWrapper({
+          'controlType': 'NumberRangeFilter',
+          'containerId': 'control',
+          'options': {
+            'filterColumnLabel': 'Benefits',
+            'ui': {'labelStacking': 'vertical'}
+          }
+        });
+
+      <!-- $.jqplot.config.enablePlugins = true; -->
+
+//      s1 = [['2015',5.5],['2020',5],['2025',4.5],['2030', 4]];
+      s1 = [5.5,5.7,5.9,6.1];
+      <!-- var fourParts = [[25.,25.,25.,25.], -->
+      <!--              [25.,25.,25.,25.], -->
+      <!--              [25.,25.,25.,25.], -->
+      <!--              [25.,25.,25.,25.], -->
+      <!--              [25.,25.,25.,25.]]; -->
+
+      var baseParts = [[25.,25.,25.,25.],
+                   [25.,25.,25.,25.],
+                   [25.,25.,25.,25.],
+                   [55.,25.,15.,5.],
+                   [25.,25.,25.,25.]];
+      var fourParts = [[25.,25.,25.,25.],
+                   [25.,25.,25.,25.],
+                   [25.,25.,25.,25.],
+                   [55.,25.,15.,5.],
+                   [25.,25.,25.,25.]];
+
+      ticks = ['2015','2020','2025','2030'];
+
+
+  $(function() {
+    $( "#slider-power-plant-NOx" ).slider({
+      range: "min",
+      value: 100,
+      min: 60,
+      max: 100,
+      step:5,
+      slide: function( event, ui ) {
+        $( "#amount-power-plant-NOx" ).val( ui.value * 21 +" Mg");
+        $( "#percent-power-plant-NOx" ).val( ui.value+" %" );
+        benData.setCell(1,1,100-ui.value);
+        benChart.draw()
+      }
+    });
+    $( "#amount-power-plant-NOx" ).val( $( "#slider-power-plant-NOx" ).slider( "value" )*21 + " Mg");
+    $( "#percent-power-plant-NOx" ).val( $( "#slider-power-plant-NOx" ).slider( "value" ) + " %");
+  });
+
+  $(function() {
+    $( "#slider-power-plant-SO2" ).slider({
+      range: "min",
+      value: 100,
+      min: 60,
+      max: 100,
+      step:5,
+      slide: function( event, ui ) {
+        $( "#amount-power-plant-SO2" ).val( ui.value * 10 +" Mg");
+        $( "#percent-power-plant-SO2" ).val( ui.value+" %" );
+        benData.setCell(2,1,100-ui.value);
+        benChart.draw()
+      }
+    });
+    $( "#amount-power-plant-SO2" ).val( $( "#slider-power-plant-SO2" ).slider( "value" )*10 + " Mg");
+    $( "#percent-power-plant-SO2" ).val( $( "#slider-power-plant-SO2" ).slider( "value" ) + " %");
+  });
+
+  $(function() {
+    $( "#slider-power-plant-PM25" ).slider({
+      range: "min",
+      value: 100,
+      min: 60,
+      max: 100,
+      step:5,
+      slide: function( event, ui ) {
+        $( "#amount-power-plant-PM25" ).val( ui.value * 2 +" Mg");
+        $( "#percent-power-plant-PM25" ).val( ui.value+" %" );
+        benData.setCell(3,1,100-ui.value);
+        benChart.draw()
+      }
+    });
+    $( "#amount-power-plant-PM25" ).val( $( "#slider-power-plant-PM25" ).slider( "value" )*2 + " Mg");
+    $( "#percent-power-plant-PM25" ).val( $( "#slider-power-plant-PM25" ).slider( "value" ) + " %");
+  });
+
+  $(function() {
+    $( "#slider-power-plant-CO2" ).slider({
+      range: "min",
+      value: 100,
+      min: 60,
+      max: 100,
+      step:5,
+      slide: function( event, ui ) {
+        $( "#amount-power-plant-CO2" ).val( ui.value * 300 +" Mg");
+        $( "#percent-power-plant-CO2" ).val( ui.value+" %" );
+        benData.setCell(4,1,100-ui.value);
+        benChart.draw()
+      }
+    });
+    $( "#amount-power-plant-CO2" ).val( $( "#slider-power-plant-CO2" ).slider( "value" )*300 + " Mg");
+    $( "#percent-power-plant-CO2" ).val( $( "#slider-power-plant-CO2" ).slider( "value" ) + " %");
+  });
+
+
+
+  $(function() {
+    $( "#slider-vehicle-NOx" ).slider({
+      range: "min",
+      value: 100,
+      min: 60,
+      max: 100,
+      step:5,
+      slide: function( event, ui ) {
+        $( "#amount-vehicle-NOx" ).val( ui.value * 50 +" Mg");
+        $( "#percent-vehicle-NOx" ).val( ui.value+" %" );
+        benData.setCell(1,1,100-ui.value);
+        benChart.draw()
+      }
+    });
+    $( "#amount-vehicle-NOx" ).val( $( "#slider-vehicle-NOx" ).slider( "value" )*50 + " Mg");
+    $( "#percent-vehicle-NOx" ).val( $( "#slider-vehicle-NOx" ).slider( "value" ) + " %");
+  });
+
+  $(function() {
+    $( "#slider-vehicle-SO2" ).slider({
+      range: "min",
+      value: 100,
+      min: 60,
+      max: 100,
+      step:5,
+      slide: function( event, ui ) {
+        $( "#amount-vehicle-SO2" ).val( ui.value * 1 +" Mg");
+        $( "#percent-vehicle-SO2" ).val( ui.value+" %" );
+        benData.setCell(2,1,100-ui.value);
+        benChart.draw()
+      }
+    });
+    $( "#amount-vehicle-SO2" ).val( $( "#slider-vehicle-SO2" ).slider( "value" )*1 + " Mg");
+    $( "#percent-vehicle-SO2" ).val( $( "#slider-vehicle-SO2" ).slider( "value" ) + " %");
+  });
+
+  $(function() {
+    $( "#slider-vehicle-PM25" ).slider({
+      range: "min",
+      value: 100,
+      min: 60,
+      max: 100,
+      step:5,
+      slide: function( event, ui ) {
+        $( "#amount-vehicle-PM25" ).val( ui.value * 10 +" Mg");
+        $( "#percent-vehicle-PM25" ).val( ui.value+" %" );
+        benData.setCell(3,1,100-ui.value);
+        benChart.draw()
+      }
+    });
+    $( "#amount-vehicle-PM25" ).val( $( "#slider-vehicle-PM25" ).slider( "value" )*10 + " Mg");
+    $( "#percent-vehicle-PM25" ).val( $( "#slider-vehicle-PM25" ).slider( "value" ) + " %");
+  });
+
+  $(function() {
+    $( "#slider-vehicle-CO2" ).slider({
+      range: "min",
+      value: 100,
+      min: 60,
+      max: 100,
+      step:5,
+      slide: function( event, ui ) {
+        $( "#amount-vehicle-CO2" ).val( ui.value * 300 +" Mg");
+        $( "#percent-vehicle-CO2" ).val( ui.value+" %" );
+        benData.setCell(4,1,100-ui.value);
+        benChart.draw()
+      }
+    });
+    $( "#amount-vehicle-CO2" ).val( $( "#slider-vehicle-CO2" ).slider( "value" )*300 + " Mg");
+    $( "#percent-vehicle-CO2" ).val( $( "#slider-vehicle-CO2" ).slider( "value" ) + " %");
+  });
+
+
+
+
+
+
+
+        // Create the dashboard
+        var dashboard = new google.visualization.Dashboard(
+            document.getElementById('dashboard'));
+      
+        // Register a listener to be notified once the dashboard is ready.
+        google.visualization.events.addListener(dashboard, 'ready', dashboardReady);
+      
+        // Configure the dashboard so that the slider to affect the piechart,
+        // then draw the dashboard.
+        dashboard.bind(slider2, benChart).draw(benData);
+
+
+
+      }
+      
+      function dashboardReady() {
+        // The dashboard is ready to accept interaction. Configure the buttons to
+        // programmatically affect the dashboard when clicked.
+      
+        // Change the slider selected range when clicked.
+
+
+	google.visualization.events.addListener(benChart.getChart(), 'select', function() {
+      	 var curRow = benChart.getChart().getSelection();
+	 var item = curRow[0];
+	 var nCurRow = item.row;
+      	 document.getElementById('metricText').innerHTML = '<b>'+benChart.getDataTable().getValue(nCurRow, 0)+'</b>: '+benChart.getDataTable().getValue(nCurRow,2);
+      	});
+
+      }
+      google.setOnLoadCallback(drawVisualization);
+    </script>
+  </head>
+
+  <body>
+<div class="container">
+<div class='four columns'>
+<header>
+<nav><ul><li>
+      <a href="/"><span style="color: #FF6666;font-family: Fugaz One;font-size:3.2em">GLIMPSE</span></a></li>
+</ul>
+</nav>
+<header>
+</div>
+<header>
+<nav class='twelve columns'>
+<ul>
+<li><a href="/about">About</a></li>
+<li><a href="/rf">Radiative Forcing</a></li>
+<li><a href="/health">Human Health</a></li>
+<li><a href="/ecosystems">Ecosystems</a></li>
+<li><a href="/scenarios">Scenarios</a></li>
+</ul>
+</nav>
+</header>
+</div>
+
+<div class="row"><br></div>
+
+
+  <div class="sixteen columns">
+    <p class="text">Drag the points to adjust the trajectory of emissions. Click on the bars to learn more about that metric.</p>
+    <div class="row">
+
+      <table border=1>
+	<tr>
+	  <td style="padding-top:15px">
+	    <div style="width:180px"><h3 style="">Power plant</h3></div>
+
+	  <td> 
+ 	    <div style="display:inline; width:220px">
+      	      <label for="percent-power-plant-NOx" style="display:inline">NOx:</label>
+      	      <input type="text" id="percent-power-plant-NOx" style="border: 0; color: #f6931f; font-weight: bold;width:40px;display:inline" />
+      	      <label for="amount-power-plant-NOx" style="display:inline">Mass:</label>
+      	      <input type="text" id="amount-power-plant-NOx" style="border: 0; color: #f6931f; font-weight: bold;display:inline; width:80px" />
+	      <div id="slider-power-plant-NOx" style="width:180px; margin-top:5px"></div> 
+	    </div>    
+	  </td>
+
+
+	  <td> 
+ 	    <div style="display:inline; width:220px">
+      	      <label for="percent-power-plant-SO2" style="display:inline">SO2:</label>
+      	      <input type="text" id="percent-power-plant-SO2" style="border: 0; color: #f6931f; font-weight: bold;width:40px;display:inline" />
+      	      <label for="amount-power-plant-SO2" style="display:inline">Mass:</label>
+      	      <input type="text" id="amount-power-plant-SO2" style="border: 0; color: #f6931f; font-weight: bold;display:inline; width:80px" />
+	      <div id="slider-power-plant-SO2" style="width:180px; margin-top:5px"></div> 
+	    </div>    
+	  </td>
+
+
+	  <td> 
+ 	    <div style="display:inline; width:220px">
+      	      <label for="percent-power-plant-PM25" style="display:inline">PM25:</label>
+      	      <input type="text" id="percent-power-plant-PM25" style="border: 0; color: #f6931f; font-weight: bold;width:40px;display:inline" />
+      	      <label for="amount-power-plant-PM25" style="display:inline">Mass:</label>
+      	      <input type="text" id="amount-power-plant-PM25" style="border: 0; color: #f6931f; font-weight: bold;display:inline; width:80px" />
+	      <div id="slider-power-plant-PM25" style="width:180px; margin-top:5px"></div> 
+	    </div>    
+	  </td>
+
+	  <td> 
+ 	    <div style="display:inline; width:220px">
+      	      <label for="percent-power-plant-CO2" style="display:inline">CO2:</label>
+      	      <input type="text" id="percent-power-plant-CO2" style="border: 0; color: #f6931f; font-weight: bold;width:40px;display:inline" />
+      	      <label for="amount-power-plant-CO2" style="display:inline">Mass:</label>
+      	      <input type="text" id="amount-power-plant-CO2" style="border: 0; color: #f6931f; font-weight: bold;display:inline; width:80px" />
+	      <div id="slider-power-plant-CO2" style="width:180px; margin-top:5px"></div> 
+	    </div>    
+	  </td>
+
+	</tr>
+
+	<tr>
+	  <td style="padding-top:15px">
+	    <div style="width:180px"><h3 style="">Passenger cars</h3></div>
+
+	  <td> 
+ 	    <div style="display:inline; width:220px">
+      	      <label for="percent-vehicle-NOx" style="display:inline">NOx:</label>
+      	      <input type="text" id="percent-vehicle-NOx" style="border: 0; color: #f6931f; font-weight: bold;width:40px;display:inline" />
+      	      <label for="amount-vehicle-NOx" style="display:inline">Mass:</label>
+      	      <input type="text" id="amount-vehicle-NOx" style="border: 0; color: #f6931f; font-weight: bold;display:inline; width:80px" />
+	      <div id="slider-vehicle-NOx" style="width:180px; margin-top:5px"></div> 
+	    </div>    
+	  </td>
+
+
+	  <td> 
+ 	    <div style="display:inline; width:220px">
+      	      <label for="percent-vehicle-SO2" style="display:inline">SO2:</label>
+      	      <input type="text" id="percent-vehicle-SO2" style="border: 0; color: #f6931f; font-weight: bold;width:40px;display:inline" />
+      	      <label for="amount-vehicle-SO2" style="display:inline">Mass:</label>
+      	      <input type="text" id="amount-vehicle-SO2" style="border: 0; color: #f6931f; font-weight: bold;display:inline; width:80px" />
+	      <div id="slider-vehicle-SO2" style="width:180px; margin-top:5px"></div> 
+	    </div>    
+	  </td>
+
+
+	  <td> 
+ 	    <div style="display:inline; width:220px">
+      	      <label for="percent-vehicle-PM25" style="display:inline">PM25:</label>
+      	      <input type="text" id="percent-vehicle-PM25" style="border: 0; color: #f6931f; font-weight: bold;width:40px;display:inline" />
+      	      <label for="amount-vehicle-PM25" style="display:inline">Mass:</label>
+      	      <input type="text" id="amount-vehicle-PM25" style="border: 0; color: #f6931f; font-weight: bold;display:inline; width:80px" />
+	      <div id="slider-vehicle-PM25" style="width:180px; margin-top:5px"></div> 
+	    </div>    
+	  </td>
+
+	  <td> 
+ 	    <div style="display:inline; width:220px">
+      	      <label for="percent-vehicle-CO2" style="display:inline">CO2:</label>
+      	      <input type="text" id="percent-vehicle-CO2" style="border: 0; color: #f6931f; font-weight: bold;width:40px;display:inline" />
+      	      <label for="amount-vehicle-CO2" style="display:inline">Mass:</label>
+      	      <input type="text" id="amount-vehicle-CO2" style="border: 0; color: #f6931f; font-weight: bold;display:inline; width:80px" />
+	      <div id="slider-vehicle-CO2" style="width:180px; margin-top:5px"></div> 
+	    </div>    
+	  </td>
+
+	</tr>
+
+
+
+      </table>
+
+
+    </div>
+    <div class="row">
+      <div class="six columns" id="dashboard">      
+	<div id="benChart"></div>
+	<div id="control" style="display:none"></div>
+	<div style=" width:500px" id="metricText"></div>
+      </div>
+    </div>
+
+
+    <!-- <span id="info3">Nothing yet.</span> -->
+
+
+<!-- Example scripts go here -->
+    </div>
+
+<!-- End example scripts -->
+
+
+</div>
+
+
+
+
+  </body>
+</html>
